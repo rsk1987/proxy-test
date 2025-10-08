@@ -1,0 +1,12 @@
+{
+  "name": "hls-proxy-github",
+  "version": "1.0.0",
+  "description": "A simple HLS proxy for demonstration purposes.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@eyevinn/hls-proxy": "^1.11.0"
+  }
+}
