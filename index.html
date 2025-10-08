@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HLS Proxy Test</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; }
+        video { max-width: 80%; }
+    </style>
+</head>
+<body>
+    <h1>Testing HLS Stream via Render Proxy</h1>
+    <p>Loading stream from: <code id="stream-url">https://proxy-test-2ix5.onrender.com/VINN.mp4/master.m3u8</code></p>
+    <video id="video" controls autoplay></video>
+
+    <!-- Include the hls.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <script>
+        // Your Render URL combined with the stream path
+        const streamUrl = document.getElementById('stream-url').textContent;
+        const video = document.getElementById('video');
+
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(streamUrl);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+            hls.on(Hls.Events.ERROR, function(event, data) {
+                console.error('HLS error:', data);
+                if (data.fatal) {
+                    switch(data.type) {
+                        case Hls.ErrorTypes.NETWORK_ERROR:
+                            console.error('Network error encountered, trying to recover...');
+                            hls.recoverMediaError();
+                            break;
+                        default:
+                            hls.destroy();
+                            break;
+                    }
+                }
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            // For Safari, which supports HLS natively
+            video.src = streamUrl;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
+        }
+    </script>
+</body>
+</html>
