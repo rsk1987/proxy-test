@@ -8,15 +8,12 @@ const proxy = new HLSProxy({
         const redirectUrl = new URL(request.raw.url, baseUrl);
         return redirectUrl.href;
     },
-    // Add a handler to modify the manifest response
+    // Add a handler to modify the manifest response to include CORS headers
     masterManifestHandler: async (manifest, request, baseUrl) => {
-        // You might need to rewrite segment URLs in a more complex scenario,
-        // but for a simple redirect, this is often enough.
         manifest.headers["Access-Control-Allow-Origin"] = "*";
         return manifest;
     },
     mediaManifestHandler: async (manifest, request, baseUrl) => {
-        // Add CORS headers to the media manifest (which lists the video segments)
         manifest.headers["Access-Control-Allow-Origin"] = "*";
         return manifest;
     }
