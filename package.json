@@ -7,6 +7,6 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@eyevinn/hls-proxy": "^1.11.0"
+    "@eyevinn/hls-proxy": "^0.1.1"
   }
 }
