@@ -1,12 +1,17 @@
 {
-  "name": "hls-proxy-github",
+  "name": "hls-proxy",
   "version": "1.0.0",
-  "description": "A simple HLS proxy for demonstration purposes.",
-  "main": "server.js",
+  "description": "Simple HLS proxy for playlist rewriting and TS proxying",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
-    "@eyevinn/hls-proxy": "^0.1.1"
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.9"
   }
 }
